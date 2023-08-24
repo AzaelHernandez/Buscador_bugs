@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 
 
@@ -133,37 +135,57 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="mb-4">Buscador de bugs</h1> {/* Aplicando clase de margen inferior */}
+      <img
+        src="../assets/img/bug.png"
+        alt="Imagen de encabezado"
+        className="imagen-encabezado"
+        />
+
+        <h1 className="mb-4">Buscador de bugs</h1>
         <div className="mb-2 d-flex align-items-center">
           <input
             type="text"
-            className="form-control mr-2" // Aplicando clase de Bootstrap para estilizar el input
+            className="form-control mr-2"
             placeholder="Introduce palabras clave..."
             value={keywords}
             onChange={(e) => {
               setKeywords(e.target.value);
-              setErrorMessage(''); // Limpiar el mensaje de error al introducir texto
+              setErrorMessage('');
             }}
             onKeyPress={handleKeyPress}
           />
-          <button className="btn btn-primary mx-3" onClick={handleSearch}>Buscar</button> {/* Aplicando clases de Bootstrap para estilizar el botón */}
+          <button className="btn btn-primary mx-3" onClick={handleSearch}>
+            Buscar
+          </button>
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <ul className="list-group">
-          {currentResults.map((issue) => (
-            <BugListItem
-              key={issue.id}
-              issue={issue}
-              selectedBug={selectedBug}
-              handleBugClick={handleBugClick}
-            />
-          ))}
-        </ul>
+        <CSSTransition
+          in={errorMessage !== ''}
+          timeout={300}
+          classNames="error-message"
+          unmountOnExit
+        >
+          <p className="error-message">{errorMessage}</p>
+        </CSSTransition>
 
+        <TransitionGroup component="ul" className="list-group">
+          {currentResults.map((issue) => (
+            <CSSTransition key={issue.id} timeout={300} classNames="fade">
+              <BugListItem
+                issue={issue}
+                selectedBug={selectedBug}
+                handleBugClick={handleBugClick}
+              />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
         
         {currentResults.length > 0 && (
           <div>
-            <button className="btn btn-primary" onClick={loadMoreResults} disabled={isLoading}>
+            <button
+              className="btn btn-primary"
+              onClick={loadMoreResults}
+              disabled={isLoading}
+            >
               {isLoading ? 'Cargando...' : 'Cargar más'}
             </button>
           </div>

@@ -67,3 +67,45 @@ input[type="text"]:focus {
     transform: rotate(360deg);
   }
 }
+
+/* Definir animación para el título */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Definir animación para la tarjeta */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Aplicar animación al título */
+.mb-4 {
+  animation: slideInFromLeft 1s ease-in-out;
+}
+
+/* Aplicar animación a las tarjetas */
+.cardPersonalizada {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Estilos para el mensaje de error */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.imagen-encabezado {
+  width: 150px; /* Ajusta el valor según tus necesidades */
+  height: auto; /* Esto mantendrá la proporción original de la imagen */
+}
