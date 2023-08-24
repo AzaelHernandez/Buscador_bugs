@@ -10,16 +10,16 @@ function BugListItem({ issue, selectedBug, handleBugClick }) {
       <div className="card bg-ligh mb-3 cardPersonalizada">
         <div className="card-header">
           <h4 className="mb-2" onClick={() => handleBugClick(issue)}>
-            Titulo: {issue.title}
+          <p className="strong-text">Título:</p>{issue.title}
           </h4>
         </div>
         <div className="card-body">
           <p className="card-text textCard">
             {selectedBug === issue && (
               <div>
-                <p>Descripcion: {issue.body}</p>
-                <p>Creado por: {issue.user.login}</p>
-                <p>Fecha de creación: {new Date(issue.created_at).toLocaleDateString()}</p>
+                <p className="strong-text">Descripción:</p>{issue.body}
+                <p className="strong-text">Creado por:</p>{issue.user.login}
+                <p className="strong-text">Fecha de creación:</p>{new Date(issue.created_at).toLocaleDateString()}
               </div>
             )}
           </p>
@@ -39,7 +39,7 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
   const [selectedBug, setSelectedBug] = useState(null); // Nuevo estado para el bug seleccionado
   const [errorMessage, setErrorMessage] = useState('');
-
+  const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
   const handleSearch = async () => {
 
@@ -51,7 +51,7 @@ function App() {
     try {
       const response = await fetch(`https://api.github.com/search/issues?q=${keywords}+type:issue`, {
         headers: {
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
         },
       });
       const data = await response.json();
@@ -113,15 +113,15 @@ function App() {
   
   useEffect(() => {
     // Aplicar un "debounce" utilizando setTimeout
-    console.log('Debounce timer started'); // Agrega este mensaje de registro
+    console.log('Debounce timer started'); 
     const debounceTimer = setTimeout(() => {
-      console.log('Debounce timer expired'); // Agrega este mensaje de registro
+      console.log('Debounce timer expired'); 
       setSearchValue(keywords);
     }, 300); // Cambiar el valor para ajustar el tiempo de "debounce"
   
     // Limpiar el temporizador en cada cambio
     return () => {
-      console.log('Debounce timer cleared'); // Agrega este mensaje de registro
+      console.log('Debounce timer cleared'); 
       clearTimeout(debounceTimer);
     };
   }, [keywords]);
