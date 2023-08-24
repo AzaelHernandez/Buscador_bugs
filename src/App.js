@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
@@ -37,7 +36,7 @@ function App() {
   const [currentResults, setCurrentResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [selectedBug, setSelectedBug] = useState(null); // Nuevo estado para el bug seleccionado
+  const [selectedBug, setSelectedBug] = useState(null); 
   const [errorMessage, setErrorMessage] = useState('');
   const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
@@ -73,7 +72,6 @@ function App() {
         setResults([]);
       }
       
-
       // Restablecer la página actual a 1 después de una nueva búsqueda
       setCurrentPage(1);
     } catch (error) {
