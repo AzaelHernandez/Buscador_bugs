@@ -4,6 +4,7 @@ import './App.css';
 
 //Al hacer clic en un bug, muestra más detalles del mismo en una vista detallada.
 function BugListItem({ issue, selectedBug, handleBugClick }) {
+  // Componente funcional que recibe props para mostrar un elemento de la lista de bugs
   return (
     <li key={issue.id} className="list-group-item mb-3 borde">
       <div className="card bg-ligh mb-3 cardPersonalizada">
@@ -29,6 +30,7 @@ function BugListItem({ issue, selectedBug, handleBugClick }) {
 }
 
 function App() {
+  // Estados definidos con useState
   const [results, setResults] = useState([]);
   const [keywords, setKeywords] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,6 +41,8 @@ function App() {
   const [selectedBug, setSelectedBug] = useState(null); 
   const [errorMessage, setErrorMessage] = useState('');
   const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
+
+  // Funciones para manejar la búsqueda, el clic en botón y otros eventos...
 
   const handleSearch = async () => {
 
@@ -173,9 +177,9 @@ function App() {
           {currentResults.map((issue) => (
             <CSSTransition key={issue.id} timeout={300} classNames="fade">
               <BugListItem
-                issue={issue}
-                selectedBug={selectedBug}
-                handleBugClick={handleBugClick}
+                issue={issue}// Prop para representar un bug específico
+                selectedBug={selectedBug}// Prop para el bug seleccionado para vista detallada
+                handleBugClick={handleBugClick}// Prop para manejar el clic en un bug
               />
             </CSSTransition>
           ))}
