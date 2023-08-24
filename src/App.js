@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 
-
+//Al hacer clic en un bug, muestra más detalles del mismo en una vista detallada.
 function BugListItem({ issue, selectedBug, handleBugClick }) {
   return (
     <li key={issue.id} className="list-group-item mb-3 borde">
@@ -17,8 +17,8 @@ function BugListItem({ issue, selectedBug, handleBugClick }) {
             {selectedBug === issue && (
               <div>
                 <p className="strong-text">Descripción:</p>{issue.body}
-                <p className="strong-text">Creado por:</p>{issue.user.login}
                 <p className="strong-text">Fecha de creación:</p>{new Date(issue.created_at).toLocaleDateString()}
+                <p className="strong-text">Creado por:</p>{issue.user.login}
               </div>
             )}
           </p>
@@ -133,6 +133,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      {/* Logo */}
       <img
         src="../assets/img/bug.png"
         alt="Imagen de encabezado"
@@ -140,6 +141,7 @@ function App() {
         />
 
         <h1 className="mb-4">Buscador de bugs</h1>
+        {/* Barra de búsqueda */}
         <div className="mb-2 d-flex align-items-center">
           <input
             type="text"
@@ -156,6 +158,7 @@ function App() {
             Buscar
           </button>
         </div>
+        {/* Mensaje de error */}
         <CSSTransition
           in={errorMessage !== ''}
           timeout={300}
@@ -165,6 +168,7 @@ function App() {
           <p className="error-message">{errorMessage}</p>
         </CSSTransition>
 
+        {/* Lista de resultados */}
         <TransitionGroup component="ul" className="list-group">
           {currentResults.map((issue) => (
             <CSSTransition key={issue.id} timeout={300} classNames="fade">
@@ -176,7 +180,7 @@ function App() {
             </CSSTransition>
           ))}
         </TransitionGroup>
-        
+         {/* Botón de carga o lazy loading*/}
         {currentResults.length > 0 && (
           <div>
             <button

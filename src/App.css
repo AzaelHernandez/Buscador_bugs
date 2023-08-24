@@ -68,7 +68,7 @@ input[type="text"]:focus {
   }
 }
 
-/* Definir animación para el título */
+
 @keyframes slideInFromLeft {
   0% {
     transform: translateX(-100%);
@@ -78,7 +78,7 @@ input[type="text"]:focus {
   }
 }
 
-/* Definir animación para la tarjeta */
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -88,30 +88,30 @@ input[type="text"]:focus {
   }
 }
 
-/* Aplicar animación al título */
+
 .mb-4 {
   animation: slideInFromLeft 1s ease-in-out;
 }
 
-/* Aplicar animación a las tarjetas */
+
 .cardPersonalizada {
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Estilos para el mensaje de error */
+
 .error-message {
   color: red;
   font-size: 14px;
   margin-top: 10px;
 }
 
-/* Ajusta el valor de la imagen */
+
 .imagen-encabezado {
   width: 150px; 
   height: auto;
 }
 
-/* Se ajusta el texto */
+
 .strong-text {
   font-weight: bold;
   margin-bottom: 0.1em;
