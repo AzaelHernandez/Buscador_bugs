@@ -19,3 +19,4 @@ Se utiliza para aplicar estilos y clases a los elementos de la interfaz.
 
 ## Ejecución
 ![b](https://github.com/AzaelHernandez/Buscador_bugs/assets/63800627/4c86f9b8-0eb6-4e52-a72e-279a6b85ec25)
+![a](https://github.com/AzaelHernandez/Buscador_bugs/assets/63800627/f789b878-d2c7-4249-ba75-fc3131de7a5e)
