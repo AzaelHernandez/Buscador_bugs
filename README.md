@@ -16,3 +16,6 @@ Se utiliza para aplicar estilos y clases a los elementos de la interfaz.
 3. Ejecuta el comando `npm install` para instalar las dependencias.
 4. Luego, ejecuta `npm start` para iniciar la aplicación en modo de desarrollo.
 5. Abre tu navegador y visita [http://localhost:3000](http://localhost:3000) para ver la aplicación en acción.
+
+## Ejecución
+![b](https://github.com/AzaelHernandez/Buscador_bugs/assets/63800627/4c86f9b8-0eb6-4e52-a72e-279a6b85ec25)
