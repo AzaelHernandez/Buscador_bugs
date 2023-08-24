@@ -1,6 +1,31 @@
 import React, { useState, useEffect } from 'react';
-
 import './App.css';
+
+
+function BugListItem({ issue, selectedBug, handleBugClick }) {
+  return (
+    <li key={issue.id} className="list-group-item mb-3 borde">
+      <div className="card bg-ligh mb-3 cardPersonalizada">
+        <div className="card-header">
+          <h4 className="mb-2" onClick={() => handleBugClick(issue)}>
+            Titulo: {issue.title}
+          </h4>
+        </div>
+        <div className="card-body">
+          <p className="card-text textCard">
+            {selectedBug === issue && (
+              <div>
+                <p>Descripcion: {issue.body}</p>
+                <p>Creado por: {issue.user.login}</p>
+                <p>Fecha de creación: {new Date(issue.created_at).toLocaleDateString()}</p>
+              </div>
+            )}
+          </p>
+        </div>
+      </div>
+    </li>
+  );
+}
 
 function App() {
   const [results, setResults] = useState([]);
@@ -11,8 +36,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [selectedBug, setSelectedBug] = useState(null); // Nuevo estado para el bug seleccionado
-  
+  const [errorMessage, setErrorMessage] = useState('');
+
+
   const handleSearch = async () => {
+
+    if (keywords.trim() === '') {
+      setErrorMessage("Por favor, introduce un texto para buscar.");
+      return;
+    }
+  
     try {
       const response = await fetch(`https://api.github.com/search/issues?q=${keywords}+type:issue`, {
         headers: {
@@ -28,14 +61,21 @@ function App() {
         );
   
         setResults(bugIssues);
+        if (bugIssues.length === 0) {
+          setErrorMessage("El bug que ingresaste no existe.");
+        } else {
+          setErrorMessage('');
+        }
+        
       } else {
         setResults([]);
       }
       
+
       // Restablecer la página actual a 1 después de una nueva búsqueda
       setCurrentPage(1);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error al obtener datos:', error);
     }
   };
   
@@ -100,47 +140,37 @@ function App() {
             className="form-control mr-2" // Aplicando clase de Bootstrap para estilizar el input
             placeholder="Introduce palabras clave..."
             value={keywords}
-            onChange={(e) => setKeywords(e.target.value)}
+            onChange={(e) => {
+              setKeywords(e.target.value);
+              setErrorMessage(''); // Limpiar el mensaje de error al introducir texto
+            }}
             onKeyPress={handleKeyPress}
           />
           <button className="btn btn-primary mx-3" onClick={handleSearch}>Buscar</button> {/* Aplicando clases de Bootstrap para estilizar el botón */}
         </div>
-        
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <ul className="list-group">
           {currentResults.map((issue) => (
-            <li key={issue.id} className="list-group-item mb-3 borde">
-              <div className="card bg-ligh mb-3 cardPersonalizada" >
-                <div className="card-header">
-                   <h4 className="mb-2" onClick={() => handleBugClick(issue)}>
-                    Titulo: {issue.title}
-                  </h4>
-                </div>
-                <div className="card-body">
-                  <p className="card-text textCard">
-                    {selectedBug === issue && (
-                      <div>
-                        <p>Descripcion: {issue.body}</p>
-                        <p>Creado por: {issue.user.login}</p>
-                        <p>
-                          Fecha de creación: {new Date(issue.created_at).toLocaleDateString()}
-                        </p>
-                      </div>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </li>
+            <BugListItem
+              key={issue.id}
+              issue={issue}
+              selectedBug={selectedBug}
+              handleBugClick={handleBugClick}
+            />
           ))}
         </ul>
-        <div>
-          <button className="btn btn-primary" onClick={loadMoreResults} disabled={isLoading}>
-            {isLoading ? 'Cargando...' : 'Cargar más'}
-          </button>
-        </div>
+
+        
+        {currentResults.length > 0 && (
+          <div>
+            <button className="btn btn-primary" onClick={loadMoreResults} disabled={isLoading}>
+              {isLoading ? 'Cargando...' : 'Cargar más'}
+            </button>
+          </div>
+        )}
       </header>
     </div>
   );
 }
-
 
 export default App;
