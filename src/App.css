@@ -14,19 +14,50 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #000000;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(255, 253, 253);
 }
 
 .App-link {
-  color: #61dafb;
+  color: #4a808f;
 }
+
+.cardPersonalizada {
+  max-width: 50rem;
+}
+
+.textCard {
+  font-size: 14px; 
+  text-align: justify; 
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  font-size: 16px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.borde {
+  border: none; 
+}
+
 
 @keyframes App-logo-spin {
   from {

@@ -94,7 +94,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 className="mb-4">Buscador de bugs</h1> {/* Aplicando clase de margen inferior */}
-        <div className="mb-3">
+        <div className="mb-2 d-flex align-items-center">
           <input
             type="text"
             className="form-control mr-2" // Aplicando clase de Bootstrap para estilizar el input
@@ -103,27 +103,35 @@ function App() {
             onChange={(e) => setKeywords(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <button className="btn btn-primary" onClick={handleSearch}>Buscar</button> {/* Aplicando clases de Bootstrap para estilizar el botón */}
+          <button className="btn btn-primary mx-3" onClick={handleSearch}>Buscar</button> {/* Aplicando clases de Bootstrap para estilizar el botón */}
         </div>
+        
         <ul className="list-group">
           {currentResults.map((issue) => (
-            <li key={issue.id} className="list-group-item mb-3">
-              <h3 className="mb-2" onClick={() => handleBugClick(issue)}>
-                Titulo: {issue.title}
-              </h3>
-              {selectedBug === issue && (
-                <div>
-                  <p className="mb-2">Descripcion: {issue.body}</p>
-                  <p className="mb-2">Creado por: {issue.user.login}</p>
-                  <p className="mb-2">
-                    Fecha de creación: {new Date(issue.created_at).toLocaleDateString()}
+            <li key={issue.id} className="list-group-item mb-3 borde">
+              <div className="card bg-ligh mb-3 cardPersonalizada" >
+                <div className="card-header">
+                   <h4 className="mb-2" onClick={() => handleBugClick(issue)}>
+                    Titulo: {issue.title}
+                  </h4>
+                </div>
+                <div className="card-body">
+                  <p className="card-text textCard">
+                    {selectedBug === issue && (
+                      <div>
+                        <p>Descripcion: {issue.body}</p>
+                        <p>Creado por: {issue.user.login}</p>
+                        <p>
+                          Fecha de creación: {new Date(issue.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                    )}
                   </p>
                 </div>
-              )}
+              </div>
             </li>
           ))}
         </ul>
-      
         <div>
           <button className="btn btn-primary" onClick={loadMoreResults} disabled={isLoading}>
             {isLoading ? 'Cargando...' : 'Cargar más'}
